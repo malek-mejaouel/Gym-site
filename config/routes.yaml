@@ -17,3 +17,6 @@ about-us:
 logout:
   path: /logout
   controller: App\Controller\UserController::logout 
+dashboard:
+  path: /dashboard
+  controller: App\Controller\DashboardController::dashboard 
