@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard - Admin One Tailwind CSS Admin Dashboard</title>
+  <title>User Profile</title>
 
   <!-- Tailwind is included -->
   <link rel="stylesheet" href="css/main.css?v=1628755089081">
@@ -63,8 +63,9 @@
   <div class="navbar-menu" id="navbar-menu">
     <div class="navbar-end">
       <div class="navbar-item dropdown has-divider">
+       
         <div class="navbar-dropdown">
-          <a href="{{path('profile')}}" class="navbar-item">
+          <a href="profile.html" class="navbar-item">
             <span class="icon"><i class="mdi mdi-account"></i></span>
             <span>My Profile</span>
           </a>
@@ -86,19 +87,20 @@
       <div class="navbar-item dropdown has-divider has-user-avatar">
         <a class="navbar-link">
           <div class="user-avatar">
-        {% set sessionUser = app.session.get('user') %}
+      {% set sessionUser = app.session.get('user') %}
 {% if sessionUser.profile_image is defined %}
     <img src="{{ asset('uploads/avatars/' ~ sessionUser.profile_image) }}" alt="Avatar" class="avatar-img" />
 {% else %}
     <img src="{{ asset('images/default-avatar.png') }}" alt="Default Avatar" class="avatar-img" />
 {% endif %}
 
+
           </div>
-          <div class="is-user-name"><span>{{ app.session.get('user').username }}</span></div>
+           <div class="is-user-name"><span>{{ app.session.get('user').username }}</span></div>
           <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
         </a>
         <div class="navbar-dropdown">
-          <a href="{{path('profile')}}" class="navbar-item">
+          <a href="profile.html" class="navbar-item active">
             <span class="icon"><i class="mdi mdi-account"></i></span>
             <span>My Profile</span>
           </a>
@@ -121,7 +123,7 @@
         <span class="icon"><i class="mdi mdi-help-circle-outline"></i></span>
         <span>About</span>
       </a>
-      <a href="https://github.com/malek-mejaouel" class="navbar-item has-divider desktop-icon-only">
+      <a href="https://github.com/justboil/admin-one-tailwind" class="navbar-item has-divider desktop-icon-only">
         <span class="icon"><i class="mdi mdi-github-circle"></i></span>
         <span>GitHub</span>
       </a>
@@ -145,7 +147,7 @@
     <p class="menu-label">General</p>
     <ul class="menu-list">
       <li class="active">
-        <a href="{{path('dashboard')}}">
+        <a href="{{ path('dashboard') }}">
           <span class="icon"><i class="mdi mdi-desktop-mac"></i></span>
           <span class="menu-item-label">Dashboard</span>
         </a>
@@ -160,7 +162,7 @@
         </a>
       </li>
       <li class="--set-active-forms-html">
-        <a href="https://justboil.me" onclick="alert('Coming soon'); return false" target="_blank" class="has-icon">
+        <a href="forms.html">
           <span class="icon"><i class="mdi mdi-square-edit-outline"></i></span>
           <span class="menu-item-label">Coach Form</span>
         </a>
@@ -172,7 +174,7 @@
         </a>
       </li>
       <li>
-        <a href="{{path('login')}}">
+        <a href="login.html">
           <span class="icon"><i class="mdi mdi-lock"></i></span>
           <span class="menu-item-label">Login</span>
         </a>
@@ -220,77 +222,151 @@
   <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
     <ul>
       <li>Admin</li>
-      <li>Dashboard</li>
+      <li>Profile</li>
     </ul>
-    <a href="https://justboil.me/" onclick="alert('Coming soon'); return false" target="_blank" class="button blue">
-      <span class="icon"><i class="mdi mdi-credit-card-outline"></i></span>
-      <span>Premium Demo</span>
-    </a>
   </div>
 </section>
 
 <section class="is-hero-bar">
   <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
     <h1 class="title">
-      Dashboard
+      Profile
     </h1>
     <button class="button light">Button</button>
   </div>
 </section>
 
   <section class="section main-section">
-    <div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
       <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span class="icon"><i class="mdi mdi-account-circle"></i></span>
+            Edit Profile
+          </p>
+        </header>
         <div class="card-content">
-          <div class="flex items-center justify-between">
-            <div class="widget-label">
-              <h3>
-                Clients
-              </h3>
-              <h1>
-                {{ userCount }}
-              </h1>
-            </div>
-            <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
-          </div>
-        </div>
+        <form method="POST" action="{{ path('image') }}" enctype="multipart/form-data">
+  <div class="field">
+    <label class="label">Avatar</label>
+    <div class="field-body">
+      <div class="field file">
+        <label class="upload control">
+          <a class="button blue">Upload</a>
+          <input type="file" name="avatar" accept="image/*" required>
+        </label>
       </div>
-      <div class="card">
-        <div class="card-content">
-          <div class="flex items-center justify-between">
-            <div class="widget-label">
-              <h3>
-                Sales
-              </h3>
-              <h1>
-                ***
-              </h1>
-            </div>
-            <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
-          </div>
-        </div>
-      </div>
+    </div>
+  </div>
+  <hr>
+</form>
 
+            {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-popup {{ label }}">{{ message }}</div>
+        {% endfor %}
+    {% endfor %}
+           <form method="POST" action="{{ path('update') }}">
+  <div class="field">
+    <label class="label">Name</label>
+    <div class="control">
+      <input type="text" name="name" value={{ app.session.get('user').username }} class="input" required>
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">E-mail</label>
+    <div class="control">
+      <input type="email" name="email" value={{ app.session.get('user').email }}  class="input" required>
+    </div>
+  </div>
+  <div class="field">
+    <div class="control">
+      <button type="submit" class="button green">Submit</button>
+    </div>
+  </div>
+</form>
+
+        </div>
+      </div>
       <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <span class="icon"><i class="mdi mdi-account"></i></span>
+            Profile
+          </p>
+        </header>
         <div class="card-content">
-          <div class="flex items-center justify-between">
-            <div class="widget-label">
-              <h3>
-                Performance
-              </h3>
-              <h1>
-                ***
-              </h1>
+          <div class="image w-48 h-48 mx-auto">
+          {% if app.session.get('user').profile_image %}
+  <img src="{{ asset('uploads/avatars/' ~ app.session.get('user').profile_image) }}" alt="Avatar" class="avatar-img" />
+{% else %}
+  <img src="{{ asset('images/default-avatar.png') }}" alt="Default Avatar" class="avatar-img" />
+{% endif %}
+
+          </div>
+          <hr>
+          <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+              <input type="text" readonly value="John Doe" class="input is-static">
             </div>
-            <span class="icon widget-icon text-red-500"><i class="mdi mdi-finance mdi-48px"></i></span>
+          </div>
+          <hr>
+          <div class="field">
+            <label class="label">E-mail</label>
+            <div class="control">
+              <input type="text" readonly value="user@example.com" class="input is-static">
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="card">
+      <header class="card-header">
+        <p class="card-header-title">
+          <span class="icon"><i class="mdi mdi-lock"></i></span>
+          Change Password
+        </p>
+      </header>
+      <div class="card-content">
+        <form>
+          <div class="field">
+            <label class="label">Current password</label>
+            <div class="control">
+              <input type="password" name="password_current" autocomplete="current-password" class="input" required>
+            </div>
+            <p class="help">Required. Your current password</p>
+          </div>
+          <hr>
+          <div class="field">
+            <label class="label">New password</label>
+            <div class="control">
+              <input type="password" autocomplete="new-password" name="password" class="input" required>
+            </div>
+            <p class="help">Required. New password</p>
+          </div>
+          <div class="field">
+            <label class="label">Confirm password</label>
+            <div class="control">
+              <input type="password" autocomplete="new-password" name="password_confirmation" class="input" required>
+            </div>
+            <p class="help">Required. New password one more time</p>
+          </div>
+          <hr>
+          <div class="field">
+            <div class="control">
+              <button type="submit" class="button green">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </section>
 
 <footer class="footer">
-  
+ 
 </footer>
 
 <div id="sample-modal" class="modal">
@@ -330,10 +406,7 @@
 </div>
 
 <!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min1.js?v=1628755089081"></script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-<script type="text/javascript" src="js/chart.sample.min1.js"></script>
+<script type="text/javascript" src="js/main.min.js?v=1628755089081"></script>
 
 
 <script>

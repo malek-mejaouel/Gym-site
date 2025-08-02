@@ -24,8 +24,18 @@ class User
     #[ORM\Column]
     private ?string $password = null;
 
-    // Getters and setters below...
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $profileImage = null;
+    public function getProfileImage(): ?string
+{
+    return $this->profileImage;
+}
 
+    public function setProfileImage(?string $profileImage): self
+{
+    $this->profileImage = $profileImage;
+    return $this;
+}
     public function getId(): ?int
     {
         return $this->id;

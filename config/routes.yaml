@@ -20,3 +20,25 @@ logout:
 dashboard:
   path: /dashboard
   controller: App\Controller\DashboardController::dashboard 
+tables:
+  path: /tables
+  controller: App\Controller\DashboardController::tables
+delete_user:
+  path: /delete-user/{id}
+  controller: App\Controller\UserController::deleteUser
+profile:
+  path: /profile
+  controller: App\Controller\DashboardController::profile
+update:
+  path: /update
+  controller: App\Controller\UserController::update
+image:
+  path: /image
+  controller: App\Controller\UserController::image
+add:
+  path: /add
+  controller: App\Controller\Coachcontroller::add
+
+list:
+  path: /list
+  controller: App\Controller\Coachcontroller::list

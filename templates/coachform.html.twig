@@ -86,13 +86,7 @@
       <div class="navbar-item dropdown has-divider has-user-avatar">
         <a class="navbar-link">
           <div class="user-avatar">
-        {% set sessionUser = app.session.get('user') %}
-{% if sessionUser.profile_image is defined %}
-    <img src="{{ asset('uploads/avatars/' ~ sessionUser.profile_image) }}" alt="Avatar" class="avatar-img" />
-{% else %}
-    <img src="{{ asset('images/default-avatar.png') }}" alt="Default Avatar" class="avatar-img" />
-{% endif %}
-
+            <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe" class="rounded-full">
           </div>
           <div class="is-user-name"><span>{{ app.session.get('user').username }}</span></div>
           <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
@@ -220,7 +214,7 @@
   <div class="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
     <ul>
       <li>Admin</li>
-      <li>Dashboard</li>
+      <li>Coach Form</li>
     </ul>
     <a href="https://justboil.me/" onclick="alert('Coming soon'); return false" target="_blank" class="button blue">
       <span class="icon"><i class="mdi mdi-credit-card-outline"></i></span>
@@ -244,82 +238,17 @@
         <div class="card-content">
           <div class="flex items-center justify-between">
             <div class="widget-label">
-              <h3>
-                Clients
-              </h3>
-              <h1>
-                {{ userCount }}
-              </h1>
+           <h2>Add Coach</h2>
+{{ form_start(form, { 'attr': {'enctype': 'multipart/form-data'} }) }}
+  {{ form_widget(form) }}
+{{ form_end(form) }}
+
             </div>
-            <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-content">
-          <div class="flex items-center justify-between">
-            <div class="widget-label">
-              <h3>
-                Sales
-              </h3>
-              <h1>
-                ***
-              </h1>
-            </div>
-            <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
+        
           </div>
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-content">
-          <div class="flex items-center justify-between">
-            <div class="widget-label">
-              <h3>
-                Performance
-              </h3>
-              <h1>
-                ***
-              </h1>
-            </div>
-            <span class="icon widget-icon text-red-500"><i class="mdi mdi-finance mdi-48px"></i></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-<footer class="footer">
-  
-</footer>
-
-<div id="sample-modal" class="modal">
-  <div class="modal-background --jb-modal-close"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">Sample modal</p>
-    </header>
-    <section class="modal-card-body">
-      <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
-      <p>This is sample modal</p>
-    </section>
-    <footer class="modal-card-foot">
-      <button class="button --jb-modal-close">Cancel</button>
-      <button class="button red --jb-modal-close">Confirm</button>
-    </footer>
-  </div>
-</div>
-
-<div id="sample-modal-2" class="modal">
-  <div class="modal-background --jb-modal-close"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">Sample modal</p>
-    </header>
-    <section class="modal-card-body">
-      <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
-      <p>This is sample modal</p>
-    </section>
     <footer class="modal-card-foot">
       <button class="button --jb-modal-close">Cancel</button>
       <button class="button blue --jb-modal-close">Confirm</button>
