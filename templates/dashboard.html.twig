@@ -87,12 +87,11 @@
         <a class="navbar-link">
           <div class="user-avatar">
         {% set sessionUser = app.session.get('user') %}
-{% if sessionUser.profile_image is defined %}
-    <img src="{{ asset('uploads/avatars/' ~ sessionUser.profile_image) }}" alt="Avatar" class="avatar-img" />
+{% if sessionUser.profileImage is defined %}
+    <img src="{{ asset('uploads/avatars/' ~ sessionUser.profileImage) }}" alt="Avatar" class="avatar-img" />
 {% else %}
     <img src="{{ asset('images/default-avatar.png') }}" alt="Default Avatar" class="avatar-img" />
 {% endif %}
-
           </div>
           <div class="is-user-name"><span>{{ app.session.get('user').username }}</span></div>
           <span class="icon"><i class="mdi mdi-chevron-down"></i></span>

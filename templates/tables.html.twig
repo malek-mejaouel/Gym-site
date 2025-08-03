@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>User Profile</title>
+  <title>Dashboard - Admin One Tailwind CSS Admin Dashboard</title>
 
   <!-- Tailwind is included -->
   <link rel="stylesheet" href="css/main.css?v=1628755089081">
@@ -63,17 +63,8 @@
   <div class="navbar-menu" id="navbar-menu">
     <div class="navbar-end">
       <div class="navbar-item dropdown has-divider">
-     
-      <div class="navbar-item dropdown has-divider has-user-avatar">
-        <a class="navbar-link">
-          <div class="user-avatar">
-            <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe" class="rounded-full">
-          </div>
-         <div class="is-user-name"><span>{{ app.session.get('user').username }}</span></div>
-          <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
-        </a>
         <div class="navbar-dropdown">
-          <a href="{{ path('profile') }}" class="navbar-item">
+          <a href="{{path('profile')}}" class="navbar-item">
             <span class="icon"><i class="mdi mdi-account"></i></span>
             <span>My Profile</span>
           </a>
@@ -91,14 +82,45 @@
             <span>Log Out</span>
           </a>
         </div>
-           </div>
       </div>
+      <div class="navbar-item dropdown has-divider has-user-avatar">
+        <a class="navbar-link">
+          <div class="user-avatar">
+        {% set sessionUser = app.session.get('user') %}
+{% if sessionUser.profileImage is defined %}
+    <img src="{{ asset('uploads/avatars/' ~ sessionUser.profileImage) }}" alt="Avatar" class="avatar-img" />
+{% else %}
+    <img src="{{ asset('images/default-avatar.png') }}" alt="Default Avatar" class="avatar-img" />
+{% endif %}
+          </div>
+          <div class="is-user-name"><span>{{ app.session.get('user').username }}</span></div>
+          <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
+        </a>
+        <div class="navbar-dropdown">
+          <a href="{{path('profile')}}" class="navbar-item">
+            <span class="icon"><i class="mdi mdi-account"></i></span>
+            <span>My Profile</span>
+          </a>
+          <a class="navbar-item">
+            <span class="icon"><i class="mdi mdi-settings"></i></span>
+            <span>Settings</span>
+          </a>
+          <a class="navbar-item">
+            <span class="icon"><i class="mdi mdi-email"></i></span>
+            <span>Messages</span>
+          </a>
+          <hr class="navbar-divider">
+          <a class="navbar-item">
+            <span class="icon"><i class="mdi mdi-logout"></i></span>
+            <span>Log Out</span>
+          </a>
+        </div>
       </div>
       <a href="https://justboil.me/tailwind-admin-templates" class="navbar-item has-divider desktop-icon-only">
         <span class="icon"><i class="mdi mdi-help-circle-outline"></i></span>
         <span>About</span>
       </a>
-      <a href="https://github.com/justboil/admin-one-tailwind" class="navbar-item has-divider desktop-icon-only">
+      <a href="https://github.com/malek-mejaouel" class="navbar-item has-divider desktop-icon-only">
         <span class="icon"><i class="mdi mdi-github-circle"></i></span>
         <span>GitHub</span>
       </a>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>User Profile</title>
+  <title>Dashboard - Admin One Tailwind CSS Admin Dashboard</title>
 
   <!-- Tailwind is included -->
   <link rel="stylesheet" href="css/main.css?v=1628755089081">
@@ -63,9 +63,8 @@
   <div class="navbar-menu" id="navbar-menu">
     <div class="navbar-end">
       <div class="navbar-item dropdown has-divider">
-       
         <div class="navbar-dropdown">
-          <a href="profile.html" class="navbar-item">
+          <a href="{{path('profile')}}" class="navbar-item">
             <span class="icon"><i class="mdi mdi-account"></i></span>
             <span>My Profile</span>
           </a>
@@ -87,20 +86,18 @@
       <div class="navbar-item dropdown has-divider has-user-avatar">
         <a class="navbar-link">
           <div class="user-avatar">
-      {% set sessionUser = app.session.get('user') %}
-{% if sessionUser.profile_image is defined %}
-    <img src="{{ asset('uploads/avatars/' ~ sessionUser.profile_image) }}" alt="Avatar" class="avatar-img" />
+        {% set sessionUser = app.session.get('user') %}
+{% if sessionUser.profileImage is defined %}
+    <img src="{{ asset('uploads/avatars/' ~ sessionUser.profileImage) }}" alt="Avatar" class="avatar-img" />
 {% else %}
     <img src="{{ asset('images/default-avatar.png') }}" alt="Default Avatar" class="avatar-img" />
 {% endif %}
-
-
           </div>
-           <div class="is-user-name"><span>{{ app.session.get('user').username }}</span></div>
+          <div class="is-user-name"><span>{{ app.session.get('user').username }}</span></div>
           <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
         </a>
         <div class="navbar-dropdown">
-          <a href="profile.html" class="navbar-item active">
+          <a href="{{path('profile')}}" class="navbar-item">
             <span class="icon"><i class="mdi mdi-account"></i></span>
             <span>My Profile</span>
           </a>
@@ -123,7 +120,7 @@
         <span class="icon"><i class="mdi mdi-help-circle-outline"></i></span>
         <span>About</span>
       </a>
-      <a href="https://github.com/justboil/admin-one-tailwind" class="navbar-item has-divider desktop-icon-only">
+      <a href="https://github.com/malek-mejaouel" class="navbar-item has-divider desktop-icon-only">
         <span class="icon"><i class="mdi mdi-github-circle"></i></span>
         <span>GitHub</span>
       </a>
@@ -232,7 +229,7 @@
     <h1 class="title">
       Profile
     </h1>
-    <button class="button light">Button</button>
+   
   </div>
 </section>
 
@@ -246,7 +243,7 @@
           </p>
         </header>
         <div class="card-content">
-        <form method="POST" action="{{ path('image') }}" enctype="multipart/form-data">
+       <form method="POST" action="{{ path('image') }}" enctype="multipart/form-data">
   <div class="field">
     <label class="label">Avatar</label>
     <div class="field-body">
@@ -255,11 +252,18 @@
           <a class="button blue">Upload</a>
           <input type="file" name="avatar" accept="image/*" required>
         </label>
+   
       </div>
     </div>
   </div>
+ <div class="control">
+      <button type="submit" class="button green">Submit</button>
+    </div>
   <hr>
+
+ 
 </form>
+
 
             {% for label, messages in app.flashes %}
         {% for message in messages %}
@@ -288,39 +292,40 @@
 
         </div>
       </div>
-      <div class="card">
-        <header class="card-header">
-          <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-account"></i></span>
-            Profile
-          </p>
-        </header>
-        <div class="card-content">
-          <div class="image w-48 h-48 mx-auto">
-          {% if app.session.get('user').profile_image %}
-  <img src="{{ asset('uploads/avatars/' ~ app.session.get('user').profile_image) }}" alt="Avatar" class="avatar-img" />
-{% else %}
-  <img src="{{ asset('images/default-avatar.png') }}" alt="Default Avatar" class="avatar-img" />
-{% endif %}
+     <div class="card">
+  <header class="card-header">
+    <p class="card-header-title">
+      <span class="icon"><i class="mdi mdi-account"></i></span>
+      Profile
+    </p>
+  </header>
 
-          </div>
-          <hr>
-          <div class="field">
-            <label class="label">Name</label>
-            <div class="control">
-              <input type="text" readonly value="John Doe" class="input is-static">
-            </div>
-          </div>
-          <hr>
-          <div class="field">
-            <label class="label">E-mail</label>
-            <div class="control">
-              <input type="text" readonly value="user@example.com" class="input is-static">
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="card-content flex flex-col items-center mt-4 mb-2">
+    <div class="image mb-4" style="width: 150px; height: 150px;">
+      {% if app.session.get('user').profileImage %}
+        <img src="{{ asset('uploads/avatars/' ~ app.session.get('user').profileImage) }}" alt="Avatar" class="rounded-full object-cover w-full h-full" />
+      {% else %}
+        <img src="{{ asset('images/default-avatar.png') }}" alt="Default Avatar" class="rounded-full object-cover w-full h-full" />
+      {% endif %}
     </div>
+    <br>
+    <br>
+    <br>
+    <div class="field w-full">
+      <label class="label">Name</label>
+       <div class="control">
+      <input type="text" name="name" value={{ app.session.get('user').username }} class="input" required>
+    </div>
+    </div>
+    <div class="field ">
+      <label class="label">E-mail</label>
+      <div class="control">
+      <input type="email" name="email" value={{ app.session.get('user').email }}  class="input" required>
+    </div>
+    </div>
+  </div>
+</div>
+
     <div class="card">
       <header class="card-header">
         <p class="card-header-title">
@@ -405,9 +410,11 @@
 
 </div>
 
-<!-- Scripts below are for demo only -->
-<script type="text/javascript" src="js/main.min.js?v=1628755089081"></script>
 
+
+<!-- Scripts below are for demo only -->
+<script type="text/javascript" src="js/main.min1.js?v=1628755089081"></script>
+<script type="text/javascript" src="js/dash.js"></script>
 
 <script>
   !function(f,b,e,v,n,t,s)
@@ -421,6 +428,7 @@
   fbq('init', '658339141622648');
   fbq('track', 'PageView');
 </script>
+
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=658339141622648&ev=PageView&noscript=1"/></noscript>
 
 <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
